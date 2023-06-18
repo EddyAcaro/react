@@ -1,0 +1,63 @@
+// Importar React y otras dependencias
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+
+// Componente principal
+function App() {
+  const [nombre, setNombre] = useState('');
+  const [edad, setEdad] = useState('');
+  const [listaDatos, setListaDatos] = useState([]);
+
+  const agregarDatos = () => {
+    if (nombre !== '' && edad !== '') {
+      const nuevoDato = {
+        nombre: nombre,
+        edad: edad
+      };
+
+      setListaDatos([...listaDatos, nuevoDato]);
+      setNombre('');
+      setEdad('');
+    }
+  };
+
+  return (
+    <div>
+      <h1>Datos Personales</h1>
+
+      <div>
+        <label htmlFor="nombre">Nombre:</label>
+        <input
+          id="nombre"
+          type="text"
+          value={nombre}
+          onChange={(e) => setNombre(e.target.value)}
+        />
+      </div>
+
+      <div>
+        <label htmlFor="edad">Edad:</label>
+        <input
+          id="edad"
+          type="number"
+          value={edad}
+          onChange={(e) => setEdad(e.target.value)}
+        />
+      </div>
+
+      <button onClick={agregarDatos}>Agregar</button>
+
+      <h2>Lista de Datos</h2>
+      <ul>
+        {listaDatos.map((dato, index) => (
+          <li key={index}>
+            Nombre: {dato.nombre}, Edad: {dato.edad}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+// Renderizar la aplicación de React en el elemento con id "root" en el archivo HTML
+ReactDOM.render(<App />, document.getElementById('root'));
